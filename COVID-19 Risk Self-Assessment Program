@@ -1,0 +1,84 @@
+import java.util.*;
+public class Main {
+    public static void main(String[] args) {
+        System.out.println("COVID-19 Risk Self-assessment Program");
+        System.out.println("#########################################");
+        Scanner scan = new Scanner(System.in);
+        System.out.println("What is your name?");
+        String name = scan.nextLine();
+        System.out.println("Are you (M)ale of (F)emale?");
+        String gender = scan.nextLine();
+        System.out.println("Are you married? (Y)es or (N)o?");
+        String marriage = scan.nextLine();
+        System.out.println("How old are you?");
+        int age = scan.nextInt();
+        System.out.println("#########################################");
+
+        System.out.println("Please kindly answer the following questions: ");
+        System.out.println("1. Have you recently traveled to an area with know local spread of COVID-19?\n   (Y)es or (N)o?");
+        String travel = scan.next();
+        System.out.println("2. Have you come into close contact (within 6 feet) with someone who has a \n   laboratory confirmed COVID-19 diagnosis in the past 14 days? (Y)es or\n   (N)o?");
+        String contact = scan.next();
+        System.out.println("3. Do you have a fever (greater than 100.4 F or 38.9 C) OR symptoms of lower\n   respiratory illness such as cough, shortness of breath, difficulty breathing\n   or sore throat? (Y)es or (N)o?");
+        String fever = scan.next();
+        System.out.println("4. Are you a first responder, healthcare worker, or employee or attendee of a\n   child or adult care facility? (Y)es or (N)o?");
+        String job = scan.next();
+
+        String[] response = { travel, contact, fever, job };
+        int score = 0;
+            for (String x : response) {
+                if (x.equals("Y")) {
+                    score++;
+                }
+            }
+
+        String[] yourName = name.split(" ");
+        String surname = yourName[yourName.length-1];
+
+        System.out.println("#########################################");
+        System.out.print("Dear ");
+        if ( age > 25 ) {
+            if (gender.equals("M")){
+                System.out.print("Mr. ");
+            }
+            else if (gender.equals("F")) {
+                if (marriage.equals("Y")) {
+                    System.out.print("Mrs. ");
+                }
+                else {
+                    System.out.print("Miss ");
+                }
+            }
+        }
+        System.out.print(surname + ",");
+        System.out.println("\n");
+        System.out.println("Our recommendation is: ");
+        if (score >= 3) {
+            System.out.println("You may need COVID-19 testing.");
+        }
+        else if (score == 2) {
+            if (fever.equals("Y")) {
+                System.out.println("You may need COVID-19 testing.");
+            } else if (travel.equals("Y") && contact.equals("Y")) {
+                System.out.println("Self-quarantine at home.");
+            } else if (travel.equals("Y") && job.equals("Y") || contact.equals("Y") && job.equals("Y")) {
+                System.out.println("Your symptoms may or may not be related to COVID-19");
+            }
+        }
+        else if (score == 1) {
+            if (travel.equals("Y") || contact.equals("Y")) {
+                System.out.println("Self-quarantine at home.");
+            }
+            else if (fever.equals("Y")) {
+                System.out.println("Your symptoms may or may not be related to COVID-19");
+            }
+            else if (job.equals("Y")) {
+                System.out.println("Practice social distancing and watch for symptoms");
+            }
+        }
+        System.out.println("\n");
+        System.out.println("Be safe!\nThank you.");
+        System.out.println("#########################################");
+
+    }
+}
